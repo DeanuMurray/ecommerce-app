@@ -1,0 +1,126 @@
+Research Answers — eCommerce Application Part 1
+================================================
+
+1. Python requests Module
+--------------------------
+The requests module is a popular third-party Python library that makes sending
+HTTP requests straightforward and readable. Rather than using Python's built-in
+urllib, which requires manually building request objects and handling encoding,
+requests provides a clean API that abstracts all of that complexity away.
+
+You import it with `import requests` and then call methods like requests.get(),
+requests.post(), requests.put(), and requests.delete() that map directly to the
+HTTP verbs. Each method returns a Response object that contains the server's
+status code, response headers, and body content. You can access the body as raw
+text (response.text), as bytes (response.content), or parsed as JSON
+automatically (response.json()). You can pass query parameters as a dictionary
+via the `params` argument, send form data or JSON payloads via `data` or `json`
+arguments, and attach files for upload. The library also handles sessions and
+cookies through requests.Session(), which lets you persist certain settings
+(like authentication headers) across multiple requests without repeating them
+each time.
+
+The main use cases are consuming REST APIs, scraping web pages, interacting with
+third-party services (payment gateways, email providers, etc.), and automated
+testing of web endpoints.
+
+
+2. JSON and XML Data Formats
+------------------------------
+
+JSON (JavaScript Object Notation)
+-----------------------------------
+JSON is a lightweight, text-based data format derived from JavaScript object
+syntax. It represents data as key-value pairs (objects) and ordered lists
+(arrays), and supports strings, numbers, booleans, null, nested objects, and
+arrays. It is the dominant format used in REST APIs today.
+
+Advantages of JSON:
+1. Very easy for humans to read and write because of its simple, clean syntax.
+2. Natively supported in JavaScript, and most modern programming languages have
+   built-in or standard library parsers (e.g., Python's `json` module).
+3. Compact compared to XML — less verbose, smaller file sizes, faster
+   transmission over a network.
+4. Direct mapping to common data structures (dictionaries, lists) makes
+   serialisation and deserialisation straightforward and fast.
+
+Disadvantages of JSON:
+1. No support for comments — you cannot annotate a JSON file without breaking
+   the format, making configuration files harder to document.
+2. All keys must be strings; you cannot use integers or other types as keys
+   directly, which can feel limiting.
+3. Lacks built-in support for complex types such as dates or binary data — these
+   must be serialised as strings using agreed-upon conventions (e.g., ISO 8601).
+4. No built-in schema validation standard as part of the format itself (JSON
+   Schema exists but is external), meaning there is no guaranteed structure
+   contract without additional tooling.
+
+
+XML (eXtensible Markup Language)
+----------------------------------
+XML is a markup language designed to store and transport data in a hierarchical,
+self-describing format using opening and closing tags. It was the dominant data
+exchange format for web services (SOAP) before JSON became widely adopted.
+
+Advantages of XML:
+1. Highly extensible — you can define your own tags and invent custom schemas
+   for any domain (e.g., SVG for graphics, RSS for feeds, SOAP for services).
+2. Supports attributes as well as element content, giving more ways to attach
+   metadata to data without changing the main structure.
+3. Has mature, standardised schema validation through DTD and XSD, allowing
+   strict contracts to be enforced on the structure and types of data.
+4. Supports namespaces, which prevent naming collisions when combining XML from
+   different sources or standards — critical in enterprise integrations.
+
+Disadvantages of XML:
+1. Very verbose — all data is wrapped in opening and closing tags, producing
+   much larger payloads compared to JSON for the same data.
+2. More complex to parse. Standard parsers (DOM, SAX) require more code and
+   understanding of the XML tree model than parsing JSON.
+3. No native data types — everything is text unless a schema is applied, so
+   type conversion must be handled explicitly.
+4. Harder to read at a glance due to the repetitive tag structure, making
+   debugging and manual inspection more tedious.
+
+
+3. RESTful APIs
+---------------
+REST (Representational State Transfer) is an architectural style for designing
+networked applications. A RESTful API is a web service that follows REST
+constraints — it exposes resources (data entities like users or products) at
+URLs, and clients interact with them using standard HTTP methods: GET to
+retrieve, POST to create, PUT/PATCH to update, and DELETE to remove.
+
+The key principles are: a uniform interface (standard HTTP verbs and status
+codes), statelessness (each request carries all the information needed —
+no server-side session is stored), and a layered architecture (client doesn't
+need to know whether it speaks directly to the server or a cache/proxy).
+Responses are typically in JSON, though XML and other formats are possible.
+
+Example: a client sends `GET /api/products/42` to retrieve product 42 and the
+server responds with a 200 OK and the product data as JSON. The client sends
+`DELETE /api/products/42` to delete it, receiving a 204 No Content on success.
+
+Advantages of RESTful APIs:
+1. Uses familiar, widely understood HTTP — any language or platform that can
+   make HTTP requests can consume a REST API without special libraries.
+2. Statelessness makes REST APIs easier to scale horizontally — any server
+   instance can handle any request since no session state is stored server-side.
+3. Clear separation between client and server: as long as the interface contract
+   (URLs and response shapes) stays stable, both sides can evolve independently.
+4. Widely adopted with rich ecosystem support — caching (HTTP cache headers),
+   authentication schemes (OAuth 2.0, JWT Bearer tokens), documentation tools
+   (OpenAPI / Swagger), and testing tools are all well-established for REST.
+
+Disadvantages of RESTful APIs:
+1. Over-fetching and under-fetching — a single REST endpoint returns a fixed
+   response shape; clients either get more data than they need or must make
+   multiple requests to assemble what they need (the "N+1 problem").
+2. No strict standard — REST is an architectural style, not a protocol, so
+   different APIs implement it inconsistently (e.g., different error formats,
+   inconsistent use of HTTP status codes).
+3. Statelessness means each request must carry authentication (e.g., a token),
+   increasing payload size and the chance of token management bugs on the client.
+4. Versioning is not natively solved — APIs commonly resort to URL versioning
+   (/api/v1/...) or header versioning, and managing breaking changes across
+   versions can become complex.

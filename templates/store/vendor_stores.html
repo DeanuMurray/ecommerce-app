@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Stores</h2>
+<a href="{% url 'store:store_create' %}">Create a new store</a>
+<ul>
+  {% for s in stores %}
+    <li>{{ s.name }} — <a href="{% url 'store:store_edit' s.pk %}">Edit</a> — <a href="{% url 'store:store_delete' s.pk %}">Delete</a> — <a href="{% url 'store:product_create' s.pk %}">Add product</a>
+      <ul>
+        {% for p in s.products.all %}
+          <li>{{ p.name }} — <a href="{% url 'store:product_edit' p.pk %}">Edit</a> — <a href="{% url 'store:product_delete' p.pk %}">Delete</a></li>
+        {% empty %}
+          <li>No products yet.</li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

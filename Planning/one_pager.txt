@@ -1,0 +1,60 @@
+One-Pager: requests, JSON vs XML, and RESTful APIs
+
+Purpose
+- Quick reference covering Python `requests`, JSON and XML formats, and RESTful APIs: what they are, key uses, pros/cons, and when to choose each.
+
+1) Python `requests` (what & how)
+- What: A simple, widely-used third-party HTTP library for Python that wraps low-level HTTP details and provides a concise API.
+- Common use: perform GET/POST/PUT/DELETE, send headers/params/json, manage sessions and cookies, handle timeouts and errors.
+- Example patterns:
+  - GET with params: requests.get(url, params={"q":"x"}, timeout=5)
+  - POST JSON: requests.post(url, json={"name":"v"}, headers={"Authorization":"Bearer ..."})
+  - Use response.status_code, response.text / response.json(), and response.raise_for_status().
+  - Use requests.Session() for connection reuse and persistent cookies.
+
+2) JSON (JavaScript Object Notation)
+- What: Lightweight, text-based data-interchange format mapping naturally to dictionaries/arrays.
+- Uses: APIs, config files, data exchange between client/server.
+- Advantages:
+  1. Compact and fast to parse
+  2. Human-readable and easy to write
+  3. Maps directly to language-native structures
+  4. Ubiquitous support across platforms and libraries
+- Disadvantages:
+  1. No native schema enforcement (external tools like JSON Schema add this)
+  2. No standard comments
+  3. Limited primitive types (no native date/time)
+  4. Less suited to document-centric content with mixed text and metadata
+
+3) XML (eXtensible Markup Language)
+- What: Verbose, tag-based markup useful for document-centric data and complex schemas.
+- Uses: document exchange, configurations that need validation, systems that require namespaces and transformations (XSLT).
+- Advantages:
+  1. Strong validation (XSD/DTD) and schema support
+  2. Supports namespaces and attributes for complex documents
+  3. Rich tooling (XPath, XSLT)
+  4. Supports comments and processing instructions
+- Disadvantages:
+  1. Verbose and larger payloads
+  2. More complex parsing (namespaces, schema rules)
+  3. Slower/more memory intensive than JSON typically
+  4. Historical parser security pitfalls (e.g., XXE) if not configured safely
+
+4) RESTful APIs (overview)
+- What: Architectural style for networked applications exposing resources over HTTP; uses standard verbs (GET/POST/PUT/DELETE) and status codes.
+- How it works: Clients call resource URLs and receive representations (often JSON); servers are stateless, can be cached, and must use consistent URIs and verbs.
+- Advantages:
+  1. Simple and leverages HTTP semantics
+  2. Scales well due to statelessness
+  3. Large ecosystem of tools and libraries
+  4. Easy caching, proxies, and interoperability
+- Disadvantages:
+  1. Can be chatty for complex operations
+  2. No single rigid contract for versioning and conventions
+  3. Not ideal for complex queries/aggregation (may lead to over/under-fetching)
+  4. Statelessness can shift complexity to the client (session/context handling)
+
+When to choose:
+- Use JSON + REST for most modern web APIs (simplicity, speed, client support).
+- Use XML when you need strict schema validation, namespaces, or document transforms.
+- Consider alternatives (GraphQL/gRPC/WebSockets) when you need flexible querying, binary protocols, or full-duplex communication.
