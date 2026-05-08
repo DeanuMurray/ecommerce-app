@@ -1,22 +1,34 @@
+{% load static %}
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}eCommerce{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 <header>
     <h1><a href="/">eCommerce</a></h1>
     <nav>
-        <a href="/">Home</a> | <a href="/cart/">Cart</a> |
+        <a href="/">Home</a>
         {% if user.is_authenticated %}
-            Hello {{ user.username }} | <a href="/accounts/logout/">Logout</a>
+            {% if user.is_vendor %}
+                <a href="{% url 'store:vendor_stores' %}">My Stores</a>
+            {% else %}
+                <a href="{% url 'store:cart' %}">Cart</a>
+            {% endif %}
+            Hello, {{ user.username }}
+            <form method="post" action="{% url 'accounts:logout' %}" style="display:inline">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
         {% else %}
-            <a href="/accounts/login/">Login</a> | <a href="/accounts/register/">Register</a>
+            <a href="{% url 'accounts:login' %}">Login</a>
+            <a href="{% url 'accounts:register' %}">Register</a>
         {% endif %}
     </nav>
 </header>
-<hr>
 <main>
     {% if messages %}
         <ul class="messages">
@@ -27,7 +39,11 @@
     {% endif %}
     {% block content %}{% endblock %}
 </main>
-<hr>
+<footer>
+    <p>&copy; 2026 eCommerce App</p>
+</footer>
+</body>
+</html>
 <footer>
     <p>eCommerce demo</p>
 </footer>

@@ -5,6 +5,7 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('register/', views.register, name='register'),
-    # Use Django's built-in auth views for login/logout/password reset
+    path('logout/', views.logout_view, name='logout'),
+    # Django built-in auth views (login, password reset, etc.)
     path('', include('django.contrib.auth.urls')),
 ]

@@ -1,0 +1,119 @@
+/* eCommerce App — main stylesheet */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Header ── */
+header {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+}
+header h1 a { color: #e94560; text-decoration: none; font-size: 1.4rem; }
+header nav a { color: #ccc; text-decoration: none; margin-left: 1rem; font-size: 0.9rem; }
+header nav a:hover { color: #fff; }
+header nav form { display: inline; }
+header nav button.logout-btn {
+    background: none;
+    border: 1px solid #666;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-left: 1rem;
+}
+header nav button.logout-btn:hover { border-color: #e94560; color: #e94560; }
+
+/* ── Main content ── */
+main { flex: 1; padding: 2rem; max-width: 960px; margin: 0 auto; width: 100%; }
+
+h2 { margin-bottom: 1.2rem; color: #1a1a2e; }
+
+/* ── Messages ── */
+ul.messages { list-style: none; margin-bottom: 1rem; }
+ul.messages li {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 0.4rem;
+    color: #155724;
+}
+
+/* ── Product list ── */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+.product-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    transition: box-shadow .2s;
+}
+.product-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,.14); }
+.product-card h3 a { color: #1a1a2e; text-decoration: none; }
+.product-card .price { color: #e94560; font-weight: bold; margin-top: .4rem; }
+.product-card .meta { font-size: .85rem; color: #777; margin-top: .2rem; }
+
+/* ── Store cards ── */
+.store-list { display: flex; flex-direction: column; gap: 1rem; }
+.store-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.2rem 1.6rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+.store-card h3 { color: #1a1a2e; margin-bottom: .4rem; }
+.store-card .actions a, .store-card .actions button {
+    margin-right: .6rem; font-size: .9rem;
+    color: #e94560; text-decoration: none; background: none;
+    border: none; cursor: pointer;
+}
+.store-card .actions a:hover, .store-card .actions button:hover { text-decoration: underline; }
+
+/* ── Forms ── */
+form p, form .field { margin-bottom: 1rem; }
+label { display: block; font-weight: 600; margin-bottom: .3rem; color: #555; }
+input[type=text], input[type=email], input[type=password],
+input[type=number], textarea, select {
+    width: 100%;
+    padding: .55rem .8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #fff;
+}
+input:focus, textarea:focus { outline: none; border-color: #e94560; }
+button[type=submit], .btn {
+    background: #e94560;
+    color: #fff;
+    border: none;
+    padding: .6rem 1.4rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+button[type=submit]:hover, .btn:hover { background: #c73652; }
+
+/* ── Cart ── */
+.cart-table { width: 100%; border-collapse: collapse; margin-bottom: 1.2rem; }
+.cart-table th, .cart-table td { padding: .7rem 1rem; text-align: left; border-bottom: 1px solid #eee; }
+.cart-table th { background: #f0f0f5; font-weight: 600; }
+.cart-total { font-size: 1.2rem; font-weight: bold; text-align: right; }
+
+/* ── Footer ── */
+footer { background: #1a1a2e; color: #888; text-align: center; padding: .8rem; font-size: .85rem; }
